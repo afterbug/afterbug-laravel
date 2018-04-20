@@ -1,0 +1,24 @@
+{
+    "name": "afterbug/afterbug-laravel",
+    "description": "AfterBug error monitoring for Laravel applications.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alfa Adhitya",
+            "email": "alfa@afterbug.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5",
+        "illuminate/contracts": "^5.0",
+        "illuminate/support": "^5.0",
+        "afterbug/afterbug": "dev-master"
+    },
+    "autoload": {
+        "psr-4" : {
+            "AfterBug\\AfterBugLaravel\\" : "src/"
+        }
+    }
+}
