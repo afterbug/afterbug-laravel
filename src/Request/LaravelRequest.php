@@ -75,7 +75,17 @@ class LaravelRequest implements RequestInterface
 
         $data['url'] = $this->request->fullUrl();
         $data['method'] = $this->request->getMethod();
-        $data['params'] = $this->request->input();
+
+        $params = $this->request->input();
+
+        foreach (config()->get('afterbug.blacklist') as $blacklist) {
+            if (array_key_exists($blacklist, $params)) {
+                $params[$blacklist] = '******';
+            }
+        }
+
+        $data['params'] = $params;
+
         $data['clientIp'] = $this->request->getClientIp();
 
         if ($agent = $this->request->header('User-Agent')) {
