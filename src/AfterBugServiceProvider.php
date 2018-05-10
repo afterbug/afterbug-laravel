@@ -53,10 +53,13 @@ class AfterBugServiceProvider extends ServiceProvider
      */
     private function directoriesExceptVendor()
     {
-        return Arr::except(
-            array_flip((new Filesystem())->directories(base_path())),
-            [base_path('vendor')]
-        );
+        $basePaths = (new Filesystem())->directories(base_path());
+
+        $vendorPath = [
+            base_path('vendor')
+        ];
+
+        return array_diff($basePaths, $vendorPath);
     }
 
     /**
@@ -74,7 +77,8 @@ class AfterBugServiceProvider extends ServiceProvider
                     'name' => 'afterbug-laravel',
                     'version' => static::VERSION,
                 ])
-                ->setApplicationPaths(array_flip($this->directoriesExceptVendor()))
+                ->setUserAttributes($config['user_attributes'])
+                ->setApplicationPaths($this->directoriesExceptVendor())
                 ->setEnvironment($app->config->get('app.env'))
                 ->registerDefaultCallbacks()
                 ->registerCallback(new User());
