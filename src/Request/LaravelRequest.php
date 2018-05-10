@@ -2,8 +2,8 @@
 
 namespace AfterBug\AfterBugLaravel\Request;
 
-use AfterBug\Request\Contracts\RequestInterface;
 use Illuminate\Http\Request;
+use AfterBug\Request\Contracts\RequestInterface;
 
 class LaravelRequest implements RequestInterface
 {
@@ -45,7 +45,7 @@ class LaravelRequest implements RequestInterface
     }
 
     /**
-     * Get the headers
+     * Get the headers.
      *
      * @return array
      */
@@ -55,7 +55,7 @@ class LaravelRequest implements RequestInterface
     }
 
     /**
-     * Get server variable
+     * Get server variable.
      *
      * @return array
      */

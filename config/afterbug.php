@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'blacklist' => array('password'),
+    'blacklist' => ['password'],
 
     /*
     |--------------------------------------------------------------------------
@@ -38,5 +38,5 @@ return [
     |
     */
 
-    'user_attributes' => array('id', 'name', 'username', 'email'),
+    'user_attributes' => ['id', 'name', 'username', 'email'],
 ];
