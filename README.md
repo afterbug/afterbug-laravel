@@ -25,7 +25,7 @@ Either run
 composer require afterbug/afterbug-laravel "~1.0"
 ```
 
-Add `afterbug/afterbug` to your composer.json
+or Add `afterbug/afterbug-laravel` to your composer.json
 
 ```
 "afterbug/afterbug-laravel": "~1.0"
@@ -76,4 +76,6 @@ AfterBug::registerCallback(function ($config) {
 
 #### Add your AfterBug Api Key to .env:
 
+```
 AFTERBUG_API_KEY=Your_API_Key
+```
