@@ -21,5 +21,12 @@
         "psr-4" : {
             "AfterBug\\AfterBugLaravel\\" : "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AfterBug\\AfterBugLaravel\\AfterBugServiceProvider"
+            ]
+        }
     }
 }

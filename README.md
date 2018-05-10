@@ -34,7 +34,7 @@ or Add `afterbug/afterbug-laravel` to your composer.json
 
 ## Usage
 
-#### Register the ServiceProvider in config/app.php
+If you're on Laravel 5.4 or earlier, you need to register the ServiceProvider in config/app.php
 
 ```php
 'providers' => [
@@ -43,13 +43,13 @@ or Add `afterbug/afterbug-laravel` to your composer.json
 ],
 ```
 
-#### Publish the default configuration
+Publish the default configuration
 
 ```
 php artisan vendor:publish --provider='AfterBug\AfterBugLaravel\AfterBugServiceProvider'
 ```
 
-#### Add AfterBug reporting to app/Exceptions/Handler.php:
+Add AfterBug reporting to app/Exceptions/Handler.php:
 
 ```
 public function report(Exception $e)
