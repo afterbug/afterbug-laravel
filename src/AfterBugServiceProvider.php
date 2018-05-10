@@ -2,14 +2,13 @@
 
 namespace AfterBug\AfterBugLaravel;
 
-use AfterBug\AfterBugLaravel\Callbacks\User;
-use AfterBug\AfterBugLaravel\Request\LaravelRequest;
 use AfterBug\Client;
 use AfterBug\Config;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
+use AfterBug\AfterBugLaravel\Callbacks\User;
+use Illuminate\Contracts\Container\Container;
+use AfterBug\AfterBugLaravel\Request\LaravelRequest;
 
 class AfterBugServiceProvider extends ServiceProvider
 {
@@ -40,7 +39,7 @@ class AfterBugServiceProvider extends ServiceProvider
         $source = realpath($raw = __DIR__.'/../config/afterbug.php') ?: $raw;
 
         $this->publishes([
-            $source => config_path('afterbug.php')
+            $source => config_path('afterbug.php'),
         ]);
 
         $this->mergeConfigFrom($source, 'afterbug');
@@ -56,7 +55,7 @@ class AfterBugServiceProvider extends ServiceProvider
         $basePaths = (new Filesystem())->directories(base_path());
 
         $vendorPath = [
-            base_path('vendor')
+            base_path('vendor'),
         ];
 
         return array_diff($basePaths, $vendorPath);
