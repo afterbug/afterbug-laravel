@@ -1,12 +1,12 @@
-# AfterBug for PHP
+# AfterBug for Laravel
 
-[![StyleCI](https://styleci.io/repos/131471848/shield?style=flat)](https://styleci.io/repos/66539893)
-[![Total Downloads](https://poser.pugx.org/afterbug/afterbug/downloads)](https://packagist.org/packages/afterbug/afterbug)
-[![Latest Stable Version](https://poser.pugx.org/afterbug/afterbug/v/stable)](https://packagist.org/packages/afterbug/afterbug)
-[![Latest Unstable Version](https://poser.pugx.org/afterbug/afterbug/v/unstable)](https://packagist.org/packages/afterbug/afterbug)
-[![License](https://poser.pugx.org/afterbug/afterbug/license)](https://packagist.org/packages/afterbug/afterbug)
+[![StyleCI](https://styleci.io/repos/128367842/shield?style=flat)](https://styleci.io/repos/66539893)
+[![Total Downloads](https://poser.pugx.org/afterbug/afterbug-laravel/downloads)](https://packagist.org/packages/afterbug/afterbug-laravel)
+[![Latest Stable Version](https://poser.pugx.org/afterbug/afterbug-laravel/v/stable)](https://packagist.org/packages/afterbug/afterbug-laravel)
+[![Latest Unstable Version](https://poser.pugx.org/afterbug/afterbug-laravel/v/unstable)](https://packagist.org/packages/afterbug/afterbug-laravel)
+[![License](https://poser.pugx.org/afterbug/afterbug-laravel/license)](https://packagist.org/packages/afterbug/afterbug-laravel)
 
-This library detects errors and exceptions in your PHP application and reports them to AfterBug for alerts and reporting.
+This library detects errors and exceptions in your Laravel application and reports them to AfterBug for alerts and reporting.
 
 ## Features
 
@@ -22,53 +22,58 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-composer require afterbug/afterbug "~1.0"
+composer require afterbug/afterbug-laravel "~1.0"
 ```
 
 Add `afterbug/afterbug` to your composer.json
 
 ```
-"afterbug/afterbug": "~1.0"
+"afterbug/afterbug-laravel": "~1.0"
 ```
 
 
 ## Usage
 
+#### Register the ServiceProvider in config/app.php
+
 ```php
-$afterbug = AfterBug\Client::make('AFTERBUG_API_KEY')
-
-// Register AfterBug error handler
-AfterBug\Exceptions\ErrorHandler::register($afterbug);
-
-// will be reported by the exception handler
-throw new \Exception('testing exception handler');
+'providers' => [
+    // ...
+    AfterBug\AfterBugLaravel\AfterBugServiceProvider::class,
+],
 ```
 
-### Callbacks
+#### Publish the default configuration
+
+```
+php artisan vendor:publish --provider='AfterBug\AfterBugLaravel\AfterBugServiceProvider'
+```
+
+#### Add AfterBug reporting to app/Exceptions/Handler.php:
+
+```
+public function report(Exception $e)
+{
+    if ($this->shouldReport($e)) {
+        AfterBug::catchException($e);
+    }
+
+    return parent::report($e);
+}
+```
+
+#### Callbacks
 
 Set a callback to customize the data.
 
 ```php
-$afterbug->registerCallback(function ($config) {
-    $config->setEnvironment('Production')
-        ->setUser([
-            'id' => 1,
-            'name' => 'Alfa'
-        ])
-        ->setMetaData([
-            'custom' => 'Your custom data'
-        ]);
-});
+AfterBug::registerCallback(function ($config) {
+    $config->setMetaData([
+        'custom' => 'Your custom data', 
+    ]);
+})->catchException($e);
 ```
 
-## Integration with frameworks
+#### Add your AfterBug Api Key to .env:
 
-Other packages exists to integrate this SDK into the most common frameworks.
-
-### Official Integrations
-
-The following integrations are supported by AfterBug team.
-
-- [Laravel](https://github.com/AfterBug/afterbug-laravel)
-- [Yii Framework](https://github.com/AfterBug/afterbug-yii)
-- Feel free to create a port to your favorite framework!
+AFTERBUG_API_KEY=Your_API_Key
