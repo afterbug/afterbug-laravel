@@ -74,7 +74,21 @@ AfterBug::registerCallback(function ($config) {
 })->catchException($e);
 ```
 
-#### Add your AfterBug Api Key to .env:
+#### Sentinel
+
+If you are using sentinel instead of laravel Auth, you have to setup user callback manually.
+
+```php
+AfterBug::registerCallback(function ($config) {
+    if (Sentinel::check()) {
+        $config->setUser(
+            Sentinel::getUser()->toArray()
+        );
+    }
+})->catchException($e);
+```
+
+### Add your AfterBug Api Key to .env:
 
 ```
 AFTERBUG_API_KEY=Your_API_Key
